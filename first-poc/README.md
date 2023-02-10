@@ -39,7 +39,7 @@ model training, model conversion to torchscript, and model inference with the to
 there is some code that serialised part of the input data into a flattened CSV file. Which has been used
 to develop and test using the torchscript version of the model with the C++ torch library.
 
-### Working WUR torch example
+### Working WUR Torch example
 The cpp folder contains a C++ torch example that reads a torchscript model and uses it to infer output
 (crop classes) reading inputs from a CSV file (created following the described PyTorch notebooks).
 
