@@ -1,4 +1,4 @@
-# Towards a Rasdaman Deep Learning UDF for UC2
+# Towards a Rasdaman UDF for Deep Learning Inference
 
 
 Goal of this activity is to establish a rasdaman User-Defined Function (UDF) for Deep Learning (DL) purposes in UC2. 
