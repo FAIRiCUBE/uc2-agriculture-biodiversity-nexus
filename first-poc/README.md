@@ -1,7 +1,7 @@
-# Towards a ML UDF for UC2
+# Towards a Rasdaman Deep Learning UDF for UC2
 
 
-Goal of this activity is to establish a rasdaman User-Defined Function (UDF) for ML purposes in UC2. 
+Goal of this activity is to establish a rasdaman User-Defined Function (UDF) for Deep Learning (DL) purposes in UC2. 
 A UDF is executable code residing on the rasdaman datacube server engine that gets invoked from 
 within a query sent to this server. When this happens the server dynamically links the code into
 the execution engine so that the corresponding external code function can be invoked and executed.
