@@ -18,14 +18,19 @@ The main goal in this use case is to investigate how a datacube based data infra
 
 ## Repository Organization
 
-In general there should be a main directory to group each major objective in the (ML) development for this use case. The number of such objectives that can be achieved will depend on the overall project's progress. A basic proof of concept (PoC) will be our first objective. 
+The repository for this use case contains directories for each of its major objectives. They are as follows:
 
+ 1. first-poc: Proof of concept for adding deep learning model inference to the rasdaman server.
+ 2. species-occurrences: How to create gridded data cubes from species occurrences data (sparse field (presence) observations).
+ 3. species-gap-filling: How to synthesize plausible additional species occurrence data using deep learning models (e.g. transformers and generative models).
+ 4. biodiversity-index: The calculation of a biodiversity index (at scale) based on the species occurrences data.
+ 5. causal-ml: Causal modelling to find explainable relations between farm management and biodiversity.
 
 ---
 
 ### Directory layout
 
-The following generic directory layout is adviced when creating a folder for the work on an ML objective.
+The following generic directory layout is used in the subdirectories for the objectives. Additional folders are added when needed.
 
 
     ├── LICENSE
