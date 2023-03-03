@@ -24,7 +24,7 @@
             "global": {
               "title": "'Sentinel-2 data served by rasdaman'",
 	            "originator": "Wageningen University & Research (WUR) - 6708 PB Wageningen, Netherlands",
-	            "resposible": "Rob Knapen - rob.knapen@wur.nl",
+	            "resposible": "Rob Knapen",
 	            "description": "Preprocessed stack of Sentinel2 images over Dutch study area for a semantic segmentation example.",
               "bands": "Stacked values of 7 Sentinel 2 images (R, G, B, NIR per image). 28 Bands in total.",
               "cell_type": "Sentinel2 multispectral band value (float)",

@@ -40,7 +40,7 @@
 #  1) rasdaman must be running
 #  2) fairicube.predictionTest UDF must be present in rasdaman
 
-RASQL="/opt/rasdaman/bin/rasql --user rknapen --passwd c9Du7ZHawU47"
+RASQL="/opt/rasdaman/bin/rasql --user $RAS_USER  --passwd $RAS_PASSWD"
 
 ########################
 # 9x9 cutout example

@@ -35,7 +35,7 @@
 #  1) rasdaman must be running
 #  2) fairicube.predictionTest UDF must not be present in rasdaman
 
-RASQL="/opt/rasdaman/bin/rasql --out string --user rknapen --passwd c9Du7ZHawU47"
+RASQL="/opt/rasdaman/bin/rasql --out string --user $RAS_USER --passwd $RAS_PASSWD"
 
 # Create fairicube.predictionTest UDF
 $RASQL -q 'create function fairicube.predictionTest (array s2_cutout)

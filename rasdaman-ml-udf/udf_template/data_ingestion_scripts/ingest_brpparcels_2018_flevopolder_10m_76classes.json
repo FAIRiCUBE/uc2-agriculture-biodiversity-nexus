@@ -24,7 +24,7 @@
             "global": {
               "title": "'Sentinel-2 data served by rasdaman'",
 	            "originator": "Wageningen University and Research (WUR) - 6708 PB Wageningen, Netherlands",
-	            "resposible": "Rob Knapen - rob.knapen@wur.nl",
+	            "resposible": "Rob Knapen",
 	            "description": "Preprocessed crop parcel data (rasterized version of Dutch LPIS ‘basisregistratie percelen’ (BRP) vector data) over a Dutch study area for a semantic segmentation example.",
               "project_purpose": "This data is part of a deep learning example to demonstrate how semantic segmentation works and to see how the functionality can be integrated in Rasdaman.",
               "data_standards": "The encoded crop classes represent crop types from the official list maintained by the Dutch government (RVO).",
