@@ -15,7 +15,7 @@ As part of the JacobsU (JU) work in FAIRiCUBE a UDF mechanism will be provided s
 be invoked from within a query; this in the sequel is referred to as "the torch UDF". WUR then can 
 use this UDF for its specific ML work.
 
-## Workplan (Draft)
+## Workplan
 
 The following work items and steps are considered initially (to be discussed and refined while going).
 
@@ -24,7 +24,6 @@ The following work items and steps are considered initially (to be discussed and
 - JU: in this working example, replace the file reading code by rasdaman datacube access
 - WUR+JU: establish the interface definition of the torch UDF
 - JU: move the WUR torch invocation code example into a server-side UDF
-- WUR: evaluate the UDF
 
 Below these steps are documented.
 
@@ -45,11 +44,7 @@ The cpp folder contains a C++ torch example that reads a torchscript model and u
 
 The code contains various comments and todos regarding UDF interfacing and remaining processing steps.
 
-### JU Torch with datacube access
+### JU Torch UDF template
 
-### JU Torch UDF interface definition
-
-### Torch as UDF
-
-### Evaluation
-
+The (ongoing) work on creating a rasdaman UDF template based on the torch example can be found in the
+udf_template folder. This is being developed on the rasdaman VM made available to the project.
