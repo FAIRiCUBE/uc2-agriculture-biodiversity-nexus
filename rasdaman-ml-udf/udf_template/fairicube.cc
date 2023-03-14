@@ -110,12 +110,12 @@ struct MyBaseType { ushort band0; ushort band1; ushort band2;
                     ushort band24; ushort band25; ushort band26; ushort band27; };
 
 /**
- * @brief Returns the arrange vector that will ingested into a torch::Tensor
+ * @brief Returns the normalized arranged vector using the maximum value per band
  * @param arrayData base type array data
  * @param arraySize size of the arrayData
- * @return float vector containing the arrange data ready to be ingest into a torch::Tensor
+ * @return float vector containing the arrange normalized data
  */
-std::vector<float> getTensorVector(MyBaseType *arrayData, size_t arraySize){
+std::vector<float> getNormalizedVector(MyBaseType *arrayData, size_t arraySize){
 
     std::vector<float> result;
     std::vector<float> tempVec;
@@ -766,7 +766,7 @@ extern "C" r_GMarray* predictionTest(r_GMarray *s2_cutout) {
     MyBaseType *arrayData = reinterpret_cast<MyBaseType*>(presult);
 
     // Create torch::Tensor from inputVector
-    std::vector<float> inputVector =  getTensorVector(arrayData, arraySize);
+    std::vector<float> inputVector =  getNormalizedVector(arrayData, arraySize);
 
     // #######################################
     // End rasdaman Data formatting code block
