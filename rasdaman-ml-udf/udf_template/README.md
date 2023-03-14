@@ -42,6 +42,12 @@ cp -r libtorch /usr/local/lib
 chmod -R 777 /usr/local/lib/libtorch
 ```
 
+3. Copy the contents of **/usr/local/lib/libtorch/lib** into **/usr/local/lib/**
+
+```
+sudo cp -a . /usr/local/lib/
+```
+
 ### Executing program
 
 To ease debugging, if necessary, please follow the step in order. Always compile first and then regis
