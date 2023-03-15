@@ -11,7 +11,7 @@
   "input": {
     "coverage_id": "sentinel2_2018_flevopolder_10m_7x4bands",
     "paths": [
-      "sentinel2_2018_flevopolder_10m_7x4bands.tif"
+      "/data/sentinel2_2018_flevopolder_10m_7x4bands.tif"
     ]
   },
   "recipe": {
@@ -165,5 +165,10 @@
       },
       "tiling": "ALIGNED [0:500, 0:500]"
     }
-  }
+  },
+  "hooks": [{
+    "description": "Calculate the per band max values",
+    "when": "after_import",
+    "cmd": "rasql -q 'CREATE TYPE sentinel2_2018_flevopolder_10m_7x4bandsString AS sentinel2_2018_flevopolder_10m_7x4bands_Cell MDARRAY [D0(*:*)]' --out string --user rasadmin --passwd rasadmin && rasql -q 'CREATE TYPE sentinel2_2018_flevopolder_10m_7x4bandsString_Set AS SET (sentinel2_2018_flevopolder_10m_7x4bandsString)' --out string --user rasadmin --passwd rasadmin && rasql -q 'create collection sentinel2_2018_flevopolder_10m_7x4bands_maxes sentinel2_2018_flevopolder_10m_7x4bandsString_Set' --user rasadmin --passwd rasadmin --quiet"
+  }]
 }
