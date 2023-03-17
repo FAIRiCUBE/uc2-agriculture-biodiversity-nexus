@@ -32,6 +32,7 @@
 #  1) rasdaman must be running
 #  2) fairicube.predictionTest UDF must be present in rasdaman
 
-RASQL="/opt/rasdaman/bin/rasql --out string --user $RAS_USER --passwd $RAS_PASSWD"
+RASQL="rasql --out string --user $RAS_USER --passwd $RAS_PASSWD"
 
 $RASQL -q "delete function fairicube.predictionTest" --out string
+$RASQL -q "delete function fairicube.predictionTestV2" --out string

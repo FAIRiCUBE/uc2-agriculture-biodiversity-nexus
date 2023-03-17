@@ -1,5 +1,6 @@
 #UDF includes
-RMANHOME = /opt/rasdaman
+RMANHOME=/opt/rasdaman
+RMANUDF=$(RMANHOME)/share/rasdaman/udf
 LIBTORCH=/usr/local/lib/libtorch
 INCDIR = -I. \
 	 -I$(RMANHOME)/include \
@@ -84,4 +85,4 @@ bin: test_rastorch.o
 
 
 clean:
-	-rm -f *.o *.so test_rastorch /opt/rasdaman/share/rasdaman/udf/libfairicube.so /opt/rasdaman/share/rasdaman/udf/fairicube.so
+	-rm -f *.o *.so test_rastorch $(RMANUDF)/libfairicube.so $(RMANUDF)/fairicube.so

@@ -40,13 +40,22 @@
 #  1) rasdaman must be running
 #  2) fairicube.predictionTest UDF must be present in rasdaman
 
-RASQL="/opt/rasdaman/bin/rasql --user $RAS_USER  --passwd $RAS_PASSWD"
+RASQL="rasql --user $RAS_USER  --passwd $RAS_PASSWD"
+
+##########################
+##########################
+
+# fairicube.predictionTest
+
+##########################
+##########################
+
 
 ########################
 # 9x9 cutout example
 ########################
-$RASQL -q 'select encode (fairicube.predictionTest(s2_cutout[250:258,200:208]), "json")
-                        from sentinel2_2018_flevopolder_10m_7x4bands_2023_03_02_14_42_41_855 as s2_cutout' --out file --outfile prediction_9x9
+#$RASQL -q 'select encode (fairicube.predictionTest(s2_cutout[250:258,200:208]), "json")
+#                        from sentinel2_2018_flevopolder_10m_7x4bands as s2_cutout' --out file --outfile prediction_9x9
 # Expected result (9x9_prediction.json) =
 # [[14,14,14,14,14,14,14,14,14],
 #  [14,14,14,14,14,14,14,14,14],
@@ -62,7 +71,24 @@ $RASQL -q 'select encode (fairicube.predictionTest(s2_cutout[250:258,200:208]), 
 ########################
 # 250x250 cutout example
 ########################
-$RASQL -q 'select encode (fairicube.predictionTest(s2_cutout[250:499,200:449]), "json")
-                        from sentinel2_2018_flevopolder_10m_7x4bands_2023_03_02_14_42_41_855 as s2_cutout' --out file --outfile prediction_250x250
+#$RASQL -q 'select encode (fairicube.predictionTest(s2_cutout[250:499,200:449]), "json")
+#                        from sentinel2_2018_flevopolder_10m_7x4bands as s2_cutout' --out file --outfile prediction_250x250
 # Expected result (250x250_prediction.json, Extract) =
 # [[23,23,23,23,69,23,69,69,69,23,23,8,8,23,23,23,23,2,2,8,8,43,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,70,41,41,41,41,41,41,41,41,23,23,8,8,14,14,14,14,14,14,14,14,14,41,3,3,3,3,46,46,46,46,46,46,3,46,3,46,46,46,41,41,41,41,41,41,41,41,41,41,41,41,41,41,3,3,41,41,41,41,14,69,69,8,14,14,14,14,14,29,29,29,29,1,
+
+
+
+###########################
+###########################
+
+# fairicube.predictionTestV2
+
+###########################
+###########################
+
+
+########################
+# 250x250 cutout example
+########################
+$RASQL -q 'select encode (fairicube.predictionTestV2(s2_cutout[250:258,200:208], sentinel2_2018_flevopolder_10m_7x4bands_maxes), "json")
+                        from sentinel2_2018_flevopolder_10m_7x4bands as s2_cutout, sentinel2_2018_flevopolder_10m_7x4bands_maxes' --out file --outfile prediction_9x9

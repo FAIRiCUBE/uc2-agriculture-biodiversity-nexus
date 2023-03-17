@@ -31,6 +31,6 @@
 # PRECONDITIONS
 #  1) rasdaman must be running
 
-RASQL="/opt/rasdaman/bin/rasql --out string --user $RAS_USER --passwd $RAS_PASSWD"
+RASQL="rasql --out string --user $RAS_USER --passwd $RAS_PASSWD"
 
 $RASQL -q "select c from RAS_COLLECTIONNAMES as c" --out string
