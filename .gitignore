@@ -127,3 +127,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+rasdaman-ml-udf/udf_template/.vscode/launch.json
