@@ -1323,7 +1323,7 @@ extern "C" r_GMarray* predictionTestV2(r_GMarray *s2_cutout, r_GMarray *maxesPer
     MyBaseType *arrayData = reinterpret_cast<MyBaseType*>(presult);
 
     // Create torch::Tensor from inputVector
-    std::vector<float> inputVector =  getNormalizedVector(arrayData, arraySize);
+    std::vector<float> inputVector =  getNormalizedVector(arrayData, arraySize, maxesPerBand);
 
     // #######################################
     // End rasdaman Data formatting code block

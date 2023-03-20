@@ -1,7 +1,7 @@
 # FAIRICUBE Pytorch UDF Proof of Concept (PoC)
 
-This template provides the basic functionality for running a machine learning (ML) user-defined funct
-ion (UDF) in rasdaman that calls Pytorch functions in Pytorch C++ API.
+This proof of concept provides the basic functionality for running a machine learning (ML) user-defined funct
+ion (UDF) in rasdaman that uses [libtorch](https://pytorch.org/cppdocs/).
 
 ## Description
 
@@ -11,7 +11,7 @@ Testing Pytorch in rasdaman UDFs
 In the rasql query below we extract a 250x250 pixel cutout of the sentinel2_2018_flevopolder_10m_7x4bands coverage
 
 ```
-rasql -q 'select encode(c[2000:2250,1000:1250], "tif") from sentinel2_2018_flevopolder_10m_7x4bands as c' --out file --user rasadmin --passwd 1R3zxUa4pW
+rasql -q 'select encode(c[2000:2250,1000:1250], "tif") from sentinel2_2018_flevopolder_10m_7x4bands as c' --out file --user $RAS_USER --passwd $RAS_PASS
 ```
 
 ## Getting Started
