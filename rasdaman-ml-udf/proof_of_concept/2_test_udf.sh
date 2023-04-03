@@ -78,17 +78,21 @@ RASQL="rasql --user $RAS_USER  --passwd $RAS_PASSWD"
 
 
 
-###########################
-###########################
+############################
+############################
 
-# fairicube.predictionTestV2
+# fairicube.predictCropClass
 
-###########################
-###########################
+############################
+############################
 
 
 ########################
 # 250x250 cutout example
 ########################
-$RASQL -q 'select encode (fairicube.predictionTestV2(s2_cutout[250:258,200:208], sentinel2_2018_flevopolder_10m_7x4bands_maxes), "json")
-                        from sentinel2_2018_flevopolder_10m_7x4bands as s2_cutout, sentinel2_2018_flevopolder_10m_7x4bands_maxes' --out file --outfile prediction_9x9
+# $RASQL -q 'select encode (fairicube.predictCropClass(s2_cutout[250:258,200:208], maxes), "json")
+#                         from sentinel2_2018_flevopolder_10m_7x4bands as s2_cutout, sentinel2_2018_flevopolder_10m_7x4bands_maxes as maxes' --out file --outfile prediction_9x9
+
+
+$RASQL -q 'select encode (fairicube.predictCropClass(s2_cutout[250:499,200:449], maxes), "json")
+                        from sentinel2_2018_flevopolder_10m_7x4bands as s2_cutout, sentinel2_2018_flevopolder_10m_7x4bands_maxes as maxes' --out file --outfile prediction_250x250

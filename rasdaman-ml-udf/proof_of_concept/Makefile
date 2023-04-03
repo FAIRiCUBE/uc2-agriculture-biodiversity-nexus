@@ -1,5 +1,5 @@
 #UDF includes
-RMANHOME=/opt/rasdaman
+RMANHOME=/opt/rasdaman_debug
 RMANUDF=$(RMANHOME)/share/rasdaman/udf
 LIBTORCH=/usr/local/lib/libtorch
 INCDIR = -I. \
@@ -69,7 +69,7 @@ tDEFS = -DEARLY_TEMPLATE -DELPP_NO_DEFAULT_LOG_FILE -DELPP_FEATURE_CRASH_LOG -DE
        -DELPP_FEATURE_CRASH_LOG -DELPP_NO_CHECK_MACROS -DELPP_THREAD_SAFE
 
 #Build all
-all: fairicube bin
+all: fairicube
 
 fairicube:  fairicube.cc
 	$(CPP) $(CFLAGS),$(SLIB)/$@.so -o $(SLIB)/$@.so $< $(LINK)

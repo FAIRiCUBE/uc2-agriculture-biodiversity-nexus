@@ -53,39 +53,20 @@
 #include "loggingutils.hh"
 #include <iostream>
 
-// Implemented extern functions.
-extern "C" r_GMarray *predictionTest(r_GMarray *s2_cutout);
+// extern functions (UDFs)
+extern "C" r_GMarray* predictCropClass(r_GMarray *inputImg, r_GMarray *maxesPerBand);
 
 INITIALIZE_EASYLOGGINGPP
 
-int main(int ac, char **av)
-{
-    int returnValue = 0;
+char rasmgrName[255] = "localhost";
+int rasmgrPort = 7001;
+char baseName[255] = "RASBASE";
+char userName[255] = "user";
+char userPass[255] = "passwd";
 
-    // setup logging configuration
-    common::LogConfiguration logConf;
-    logConf.configClientLogging();
-
-    char rasmgrName[255];
-    int rasmgrPort;
-    char baseName[255];
-    char userName[255];
-    char userPass[255];
-
-    strcpy(rasmgrName, "localhost");
-    rasmgrPort = strtoul("7001", NULL, 0);
-    strcpy(baseName, "RASBASE");
-    strcpy(userName, "rasadmin");
-    strcpy(userPass, "rasadmin");
-
-    std::string collName = std::string("sentinel2_2018_flevopolder_10m_7x4bands");
-    // std::string collName = std::string("test_s2_tub_v2");
+r_Database connectToRasdaman(){
 
     r_Database database;
-    r_Transaction transaction{&database};
-    r_Set<r_Ref<r_GMarray>> image_set;
-    r_Ref<r_GMarray> image;
-    r_Iterator<r_Ref<r_GMarray>> iter;
 
     try
     {
@@ -97,7 +78,21 @@ int main(int ac, char **av)
 
         database.open(baseName);
         std::cout << "OK" << std::endl;
+    }
+    catch (r_Error &errorObj)
+    {
+        std::cerr << errorObj.what() << std::endl;
+    }
 
+    return database;
+
+}
+
+r_Set<r_Ref<r_GMarray>> doTransaction(r_Transaction transaction,
+                               std::string collName) 
+                                throw(r_Error){
+
+        r_Set<r_Ref<r_GMarray>> image_set;
         std::cout << "Starting read-only transaction ... " << std::flush;
         transaction.begin(r_Transaction::read_only);
         std::cout << "OK" << std::endl;
@@ -130,10 +125,45 @@ int main(int ac, char **av)
             std::cout << "Closing database ... " << std::flush;
             database.close();
             std::cout << "OK" << std::endl;
-            return -1;
+
+            throw &errorObj;
         }
         std::cout << "OK" << std::endl
                   << std::endl;
+
+        return image_set;
+
+}
+
+r_Set<r_Ref<r_GMarray>> getGMarray(r_Database db){
+
+    r_Set<r_Ref<r_GMarray>> result;
+
+    return result;
+}
+
+int main(int ac, char **av)
+{
+    int returnValue = 0;
+
+    // setup logging configuration
+    common::LogConfiguration logConf;
+    logConf.configClientLogging();
+
+    std::string collName = std::string("sentinel2_2018_flevopolder_10m_7x4bands");
+
+    r_Database database;
+    r_Transaction transaction{&database};
+    r_Set<r_Ref<r_GMarray>> image_set;
+    r_Ref<r_GMarray> image;
+    r_Iterator<r_Ref<r_GMarray>> iter;
+
+    try
+    {
+        database = connectToRasdaman();
+        std::cout << "OK" << std::endl;
+
+        
 
         std::cout << "Collection" << std::endl;
         std::cout << "  Oid...................: " << image_set.get_oid() << std::endl;
@@ -178,7 +208,7 @@ int main(int ac, char **av)
             std::cout << std::endl;
 
             r_GMarray *array = &(*image);
-            r_GMarray *result = predictionTest(array);
+            r_GMarray *result = predictCropClass(array, array);
 
             std::cout << "Printing from the other side " << std::endl;
 

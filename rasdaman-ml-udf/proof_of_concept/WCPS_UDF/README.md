@@ -1,7 +1,7 @@
-# FAIRICUBE Pytorch UDF Proof of Concept (PoC)
+# FAIRICUBE Pytorch WCPS UDF Proof of Concept (PoC)
 
 This proof of concept demonstrates how to execute a semantic segmentation machine learning ML prediction in
-[rasdaman](https://doc.rasdaman.org/) using rasql, user-defined functions UDFs, and the ML library 
+[rasdaman](https://doc.rasdaman.org/) using WCPS, user-defined functions UDFs, and the ML library 
 [libtorch](https://pytorch.org/cppdocs/).
 
 ## Description
@@ -140,3 +140,166 @@ Inspiration, code snippets, etc.
 * [dbader](https://github.com/dbader/readme-template)
 * [zenorocha](https://gist.github.com/zenorocha/4526327)
 * [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+
+
+
+
+rasdaman needs to be embedded in order to restart using {RMANHOME}/bin/start_rasdaman.sh or sudo systemctl restart rasdaman
+
+CURL EXAMPLE
+curl "http://localhost:8080/rasdaman/ows" --output test.json --data-urlencode 'service=WCS&version=2.0.1&request=ProcessCoverages&query=for c in (mean_summer_airtemp) return encode(c, "json")' -u user:passwd
+
+
+
+
+
+
+
+javac -cp "/opt/rasdaman_debug/share/rasdaman/petascope/rasdaman-geo-api.jar:/opt/rasdaman_debug/share/rasdaman/petascope/rasdaman-geo-core.jar" UDF/predictCropClass.java
+
+jar cvf fairicube.jar fairicube
+
+cp -rp fairicube.jar /opt/rasdaman_debug/share/rasdaman/petascope/udf
+
+curl "http://localhost:8080/rasdaman/ows" --output test.json --data-urlencode 'service=WCS&version=2.0.1&request=ProcessCoverages&query=for $c in AverageChlorophyll return encode(fairicube.predictCropClass($c, 100), "json")' -u user:passwd
+
+
+
+
+
+
+
+
+
+
+javac -cp "/opt/rasdaman_debug/share/rasdaman/petascope/rasdaman-geo-api.jar:/opt/rasdaman_debug/share/rasdaman/petascope/rasdaman-geo-core.jar" fairicube/predictCropClass.java
+
+jar cvf fairicube.jar fairicube
+
+cp -rp fairicube.jar /opt/rasdaman_debug/share/rasdaman/petascope/udf
+
+curl "http://localhost:8080/rasdaman/ows" --output test.json --data-urlencode 'service=WCS&version=2.0.1&request=ProcessCoverages&query=for $c in (AverageChlorophyll) return encode(fairicube.predictCropClass($c, 100), "json")' -u user:passwd
+
+
+
+
+
+
+
+
+
+
+New WCPS query
+--------------
+
+for $sentinel2 in ( sentinel2_2018_flevopolder_10m_7x4bands ),
+    $maxes in ( sentinel2_2018_flevopolder_10m_7x4bands_maxes ) 
+return encode( 
+        ( fairicube.predictCropClass($sentinel2, $maxes), "json" )
+
+
+
+rm -rvf fairicube/PredictCropClass.class
+
+javac -cp "/opt/rasdaman_debug/share/rasdaman/petascope/rasdaman-geo-api.jar:/opt/rasdaman_debug/share/rasdaman/petascope/rasdaman-geo-core.jar" fairicube/PredictCropClass.java
+
+jar cvf fairicube.jar fairicube
+
+rm -rvf /opt/rasdaman_debug/share/rasdaman/petascope/udf/fairicube.jar
+
+cp -rp fairicube.jar /opt/rasdaman_debug/share/rasdaman/petascope/udf
+
+/opt/rasdaman_debug/bin/stop_rasdaman.sh
+
+/opt/rasdaman_debug/bin/start_rasdaman.sh
+
+curl "http://localhost:8080/rasdaman/ows" --output output_WCPS.json --data-urlencode 'service=WCS&version=2.0.1&request=ProcessCoverages&query=for $sentinel2 in ( sentinel2_2018_flevopolder_10m_7x4bands ), $maxes in ( maxes_sentinel2_2018_flevopolder_10m_7x4bands ) return encode( fairicube.predictCropClass($sentinel2[E(674900:674900),N(5832260:5840000)], $maxes), "json" )' -u user:passwd
+
+curl 'http://localhost:8080/rasdaman/ows?service=WCS&version=2.0.1&request=DeleteCoverage&coverageId=sentinel2_2018_flevopolder_10m_7x4bands_maxes' -u user:passwd
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+javac -cp "/opt/rasdaman_debug/share/rasdaman/petascope/rasdaman-geo-api.jar:/opt/rasdaman_debug/share/rasdaman/petascope/rasdaman-geo-core.jar" fairicube/PredictCropClass.java

@@ -34,5 +34,5 @@
 
 RASQL="rasql --out string --user $RAS_USER --passwd $RAS_PASSWD"
 
-$RASQL -q "delete function fairicube.predictionTest" --out string
-$RASQL -q "delete function fairicube.predictionTestV2" --out string
+#$RASQL -q "delete function fairicube.predictionTest" --out string
+$RASQL -q "delete function fairicube.predictCropClass" --out string

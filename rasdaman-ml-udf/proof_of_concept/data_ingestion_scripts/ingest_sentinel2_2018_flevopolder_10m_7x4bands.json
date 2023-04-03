@@ -169,6 +169,6 @@
   "hooks": [{
     "description": "Calculate the per band max values",
     "when": "after_import",
-    "cmd": "rasql -q 'select encode(max_cells(c), \"csv\") from sentinel2_2018_flevopolder_10m_7x4bands as c' --out file --outfile result && rasql -q 'create collection sentinel2_2018_flevopolder_10m_7x4bands_maxes UShortSet1' --user rasadmin --passwd rasadmin && ./after_import.sh"
+    "cmd": "rasql -q 'select encode(max_cells(c), \"csv\") from sentinel2_2018_flevopolder_10m_7x4bands as c' --out file --outfile result && rasql -q 'create collection sentinel2_2018_flevopolder_10m_7x4bands_maxes UShortSet1' --user {user} --passwd {passwd} && ./after_import.sh"
   }]
 }
