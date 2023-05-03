@@ -1,0 +1,63 @@
+{
+  "config": {
+    "service_url": "http://localhost:8080/rasdaman/ows",
+    "tmp_directory": "/tmp/",
+    "mock": false,
+    "automated": true,
+    "track_files": false,
+    "subset_correction": false,
+    "insitu": false
+  },
+  "input": {
+    "coverage_id": "brpparcels_2018_flevopolder_10m_76classes",
+    "paths": [
+      "brpparcels_2018_flevopolder_10m_76classes.tif"
+    ]
+  },
+  "recipe": {
+    "name": "general_coverage",
+    "options": {
+        "coverage": {
+          "crs": "EPSG/0/32631",
+          "metadata": {
+            "type": "xml",
+            "global": {
+              "title": "'Sentinel-2 data served by rasdaman'",
+	            "originator": "Wageningen University and Research (WUR) - 6708 PB Wageningen, Netherlands",
+	            "resposible": "Rob Knapen",
+	            "description": "Preprocessed crop parcel data (rasterized version of Dutch LPIS ‘basisregistratie percelen’ (BRP) vector data) over a Dutch study area for a semantic segmentation example.",
+              "project_purpose": "This data is part of a deep learning example to demonstrate how semantic segmentation works and to see how the functionality can be integrated in Rasdaman.",
+              "data_standards": "The encoded crop classes represent crop types from the official list maintained by the Dutch government (RVO).",
+              "crop_class": "Unique crop classes, encoded as integer values [1,76]; UInt16; dimensionless."
+            }
+          },
+          "slicer": {
+            "type": "gdal",
+            "bands": [
+              {
+                "name": "Band_1",
+                "identifier": "Band 1",
+                "description": "Integer encoded crop class, representing the crop grown on the farm parcel (in 2018).",
+                "nilValue": "0"
+              }
+            ],
+            "axes": {
+              "E": {
+                  "min": "${gdal:minX}",
+                  "max": "${gdal:maxX}",
+                  "gridOrder": 0,
+                  "resolution": "${gdal:resolutionX}"
+              },
+              "N": {
+                  "min": "${gdal:minY}",
+                  "max": "${gdal:maxY}",
+                  "gridOrder": 1,
+                  "resolution": "${gdal:resolutionY}"
+              }
+          }
+        }      
+      },
+      "tiling": "ALIGNED [0:500, 0:500]"
+    }
+  }
+}
