@@ -1,0 +1,49 @@
+{
+  "config": {
+    "service_url": "http://localhost:8080/rasdaman/ows",
+    "tmp_directory": "/tmp/",
+    "mock": false,
+    "automated": true,
+    "track_files": false
+  },
+  "input": {
+    "coverage_id": "sentinel2_maxes",
+    "paths": [
+      "maxes_sentinel2_2018_flevopolder_10m_7x4bands.nc"
+    ]
+  },
+  "recipe": {
+    "name": "general_coverage",
+    "options": {
+      "coverage": {
+	"grid_coverage": true,
+        "crs": "OGC/0/Index1D",
+        "metadata": {
+          "type": "xml",
+          "global": {
+            "Title": "'This is a test file'",
+            "Project": "'This is another test file'",
+            "Creator": "'This is a test creator file'"
+          }
+        },
+        "slicer": {
+          "type": "netcdf",
+          "bands": [
+            {
+              "name": "var",
+              "identifier": "var"
+            }
+          ],
+          "axes": {
+            "i": {
+              "min": "0",
+              "max": "28",
+              "resolution": 1
+            }
+          }
+        }
+      },
+      "tiling": "ALIGNED [0:1023]"
+    }
+  }
+}
