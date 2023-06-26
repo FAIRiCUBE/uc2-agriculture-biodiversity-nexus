@@ -89,7 +89,8 @@ int main(int ac, char **av)
     r_Minterval where_domain = r_Minterval("[8:9,8:9]");
     r_ULong threshold_value = 0;
 
-    r_OQL_Query query("select a[0:8,0:8] from $1 as a");
+    // r_OQL_Query query("select a[0:8,0:8] from $1 as a");
+    r_OQL_Query query("select a$2 from $1 as a");
 
     r_Database database;
     r_Transaction transaction{&database};
@@ -183,6 +184,9 @@ int main(int ac, char **av)
             image = *iter;
             image->print_status(std::cout);
             std::cout << std::endl;
+
+            r_GMarray *array = &(*image);
+            r_GMarray *result = predictCropClass(array, array);
         }
         std::cout << std::endl;
 

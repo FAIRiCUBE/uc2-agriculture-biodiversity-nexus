@@ -134,3 +134,5 @@ rasdaman-ml-udf/udf_template/.idea/vcs.xml
 rasdaman-ml-udf/udf_template/test_rastorch
 rasdaman-ml-udf/udf_template/prediction_9x9.json
 rasdaman-ml-udf/udf_template/.idea/modules.xml
+rasdaman-ml-udf/proof_of_concept/rasql_python_udf/test_predict_crop_class
+rasdaman-ml-udf/proof_of_concept/rasql_python_udf/test_predict_crop_class.o

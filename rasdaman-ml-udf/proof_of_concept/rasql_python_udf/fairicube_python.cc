@@ -730,7 +730,6 @@ extern "C" r_GMarray* predictCropClass(r_GMarray *s2_cutout, r_GMarray *maxesPer
     const auto& domArray = s2_cutout->spatial_domain(); // Get the GMarray spatial domain. e.g., [0:250, 0:250]
     size_t arraySize = domArray.cell_count(); // Get the size of the array
 
-
     const auto& r_domArray = maxesPerBand->spatial_domain(); // Get the GMarray spatial domain. e.g., [0:250, 0:250]
     size_t r_arraySize = r_domArray.cell_count(); // Get the size of the array
 
@@ -800,6 +799,23 @@ extern "C" r_GMarray* predictCropClass(r_GMarray *s2_cutout, r_GMarray *maxesPer
         PyObject* floatObject = PyFloat_FromDouble(static_cast<double>(inputVector[i]));
         PyList_SetItem(inputList, i, floatObject);
     }
+
+    // Get the length of the list
+    Py_ssize_t length = PyList_Size(inputList);
+
+    // Print the contents of the PyList
+    // Iterate over the list and print its contents
+    for (Py_ssize_t i = 0; i < length; ++i) {
+        // Get the item at the current index
+        PyObject* item = PyList_GetItem(inputList, i);
+
+        // Convert the Python object to a C string
+        char* str = const_cast<char*>(PyUnicode_AsUTF8(item));
+
+        // Print the C string
+        printf("%s\n", str);
+    }
+
 
     // Call the Python function with the input list
     PyObject* args = PyTuple_Pack(1, inputList);
