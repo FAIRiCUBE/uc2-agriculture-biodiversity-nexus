@@ -1,44 +1,20 @@
-#!/bin/sh
-#
-# This file is part of rasdaman community.
-#
-# Rasdaman community is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Rasdaman community is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Copyright 2003 - 2023 Peter Baumann / rasdaman GmbH.
-#
-# For more information please see <http://www.rasdaman.org>
-# or contact Peter Baumann via <baumann@rasdaman.com>.
-#
-# ------------------------------------------------------------------------------
-#
-# SYNOPSIS
-# ./1_create_udf.sh
-#
-# Description
-#  Command-line utility for creating the prediction UDF "predictCropClass" inside 
-#  the "fairicube_python" namespace. The prediction UDF takes a cutout of the 
-#  sentinel2_2018_flevopolder_10m_7x4bands coverage and outputs the crop labels 
-#  per pixel of that cutout.
-#
-# PRECONDITIONS
-#  1) rasdaman must be running
-#  2) fairicube_python.predictCropClass UDF must not be present in rasdaman
+#!/bin/bash
 
-RASQL="$RASDAMAN/rasql --user $RAS_USER --passwd $RAS_PASSWD"
+creds="$HOME/.rasadmin_credentials"
+[ -f "$creds" ] || { echo "Please create file $creds with rasdaman admin credentials in format <username>:<password>"; exit 1; }
 
-# Create fairicube_python.predictCropClass UDF
-$RASQL -q 'create function fairicube_python.predictCropClass (array s2_cutout, array maxes_per_band)
-returns array
-language cpp
-extern "fairicube_python.so"'
+user="$(awk -F: '{ print $1; }' "$HOME/.rasadmin_credentials")"
+pw="$(awk -F: '{ print $2; }' "$HOME/.rasadmin_credentials")"
+
+[ -n "$RMANHOME" ] || export RMANHOME=/opt/rasdaman
+RASQL="$RMANHOME/bin/rasql --user $user --passwd $pw --quiet"
+
+udf=fc.predict_crop_class
+echo -n "creating UDF $udf ... "
+
+if $RASQL -q "create function $udf(array s2_cutout, array maxes_per_band) returns array language python extern \"fc.py\""; then
+  echo ok.
+else
+  echo failed.
+  exit 1
+fi

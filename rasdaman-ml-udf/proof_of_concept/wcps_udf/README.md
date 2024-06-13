@@ -1,5 +1,12 @@
-javac -cp "/opt/rasdaman/share/rasdaman/petascope/rasdaman-geo-api.jar:/opt/rasdaman/share/rasdaman/petascope/rasdaman-geo-core.jar" fairicube/PredictCropClass.java
+# rasdaman WCPS UDF for crop class prediction
 
-jar cvf fairicube.jar fairicube
+- `fairicube` directory contains the version that calls the rasql C++ UDF
+- `fc` directory contains the fc.predictCropClass UDF that calls the rasql Python UDF
 
-cp -rp fairicube.jar /opt/rasdaman/share/rasdaman/petascope/udf
+## Deploy
+
+```
+cp -r fc /opt/rasdaman/share/rasdaman/petascope/udf/
+cd /opt/rasdaman/share/rasdaman/petascope/udf/
+sudo -u rasdaman bash build.sh
+```

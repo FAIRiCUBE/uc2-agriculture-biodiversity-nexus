@@ -32,7 +32,19 @@
 #  1) rasdaman must be running
 #  2) fairicube.predictionTest UDF must be present in rasdaman
 
-RASQL="$RASDAMAN/rasql --user $RAS_USER --passwd $RAS_PASSWD"
+creds="$HOME/.rasadmin_credentials"
+[ -f "$creds" ] || { echo "Please create file $creds with rasdaman admin credentials in format <username>:<password>"; exit 1; }
 
-$RASQL -q "delete function fairicube_python.predictCropClass" --out string
+user="$(awk -F: '{ print $1; }' "$HOME/.rasadmin_credentials")"
+pw="$(awk -F: '{ print $2; }' "$HOME/.rasadmin_credentials")"
 
+[ -n "$RMANHOME" ] || export RMANHOME=/opt/rasdaman
+RASQL="$RMANHOME/bin/rasql --user $user --passwd $pw --quiet"
+
+udf=fc.predict_crop_class
+
+if $RASQL -q "delete function $udf"; then
+  echo ok.
+else
+  echo failed.
+fi

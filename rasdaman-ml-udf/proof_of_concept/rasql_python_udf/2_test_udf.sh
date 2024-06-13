@@ -1,55 +1,38 @@
-#!/bin/sh
-#
-# This file is part of rasdaman community.
-#
-# Rasdaman community is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Rasdaman community is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with rasdaman community.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Copyright 2003 - 2023 Peter Baumann / rasdaman GmbH.
-#
-# For more information please see <http://www.rasdaman.org>
-# or contact Peter Baumann via <baumann@rasdaman.com>.
-#
-# ------------------------------------------------------------------------------
-#
-# SYNOPSIS
-# ./2_test_udf.sh
-#
-# Description
-#  Command-line utility for testing the prediction UDF "fairicube.predictCropClass".
-#  It tests three examples. Each example takes a cutout of the coverage 
-#  sentinel2_2018_flevopolder_10m_7x4bands and outputs a JSON file with
-#  pixel crop classification prediction. The cutouts are as follows:
-#  1. 9x9 cutout example
-#  2. 250x250 cutout example
-#  3. 250x250 cutout example
-#  The prediction UDF takes a cutout of the sentinel2_2018_flevopolder_10m_7x4bands 
-#  coverage and outputs the crop labels per pixel of that cutout.
-#
-# PRECONDITIONS
-#  1) rasdaman must be running
-#  2) fairicube.predictCropClass UDF must be present in rasdaman
+#!/bin/bash
 
-RASQL="$RASDAMAN/rasql --user $RAS_USER --passwd $RAS_PASSWD"
+creds="$HOME/.rasadmin_credentials"
+[ -f "$creds" ] || { echo "Please create file $creds with rasdaman admin credentials in format <username>:<password>"; exit 1; }
 
-############################
-# 9x9 cutout example to json
-############################
-############################
-# 9x9 cutout example to json
-############################
-$RASQL -q 'select encode (fairicube_python.predictCropClass(s2_cutout[250:258,200:208], maxes), "json") from sentinel2_2018_flevopolder_10m_7x4bands as s2_cutout, maxes_sentinel2_2018_flevopolder_10m_7x4bands as maxes' --out file --outfile prediction_9x9
-# Expected result (9x9_prediction.json) =
+user="$(awk -F: '{ print $1; }' "$HOME/.rasadmin_credentials")"
+pw="$(awk -F: '{ print $2; }' "$HOME/.rasadmin_credentials")"
+
+[ -n "$RMANHOME" ] || export RMANHOME=/opt/rasdaman
+RASQL="$RMANHOME/bin/rasql --user $user --passwd $pw"
+
+[ "$1" = gdb ] && gdbcmd="gdb --args"
+[ "$1" = val ] && gdbcmd="valgrind --tool=memcheck"
+
+# RASQL="sudo -u rasdaman $gdbcmd /tmp/rasserver --user $user --passwd $pw"
+
+echo
+echo "running python UDF"
+udf=fc.predict_crop_class
+coll=sentinel2_2018_flevopolder_10m_7x4bands
+maxes=maxes_sentinel2_2018_flevopolder_10m_7x4bands
+
+$RASQL -q "select encode ($udf(s2_cutout[250:258,200:208], maxes_per_band), \"json\") from $coll as s2_cutout, $maxes as maxes_per_band" \
+       --out string
+
+echo
+echo "running C++ UDF"
+udf=fairicube.predictCropClass
+coll=sentinel2_2018_flevopolder_10m_7x4bands
+maxes=maxes_sentinel2_2018_flevopolder_10m_7x4bands
+
+$RASQL -q "select encode ($udf(s2_cutout[250:258,200:208], maxes_per_band), \"json\") from $coll as s2_cutout, $maxes as maxes_per_band" \
+       --out string
+
+# Expected result
 # [[14,14,14,14,14,14,14,14,14],
 #  [14,14,14,14,14,14,14,14,14],
 #  [14,14,14,14,14,14,14,14,14],
@@ -60,4 +43,3 @@ $RASQL -q 'select encode (fairicube_python.predictCropClass(s2_cutout[250:258,20
 #  [14,14,14,14,14,3,23,23,23],
 #  [14,14,14,14,23,3,3,23,23]
 #  ]
-
