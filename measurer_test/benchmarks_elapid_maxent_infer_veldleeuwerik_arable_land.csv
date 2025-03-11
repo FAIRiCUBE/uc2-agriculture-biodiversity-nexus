@@ -1,0 +1,26 @@
+Measure,Value
+Data size in grid points ,
+Largest allocated array in grid points ,"[2658345, 8]"
+Data size (MB),0.0
+Data read (MB),0.0
+Data written (MB),0.0
+Main memory available (MB),126177.4
+Main memory consumed (MB),8335.82
+Sum of allocated variable sizes (MB),527.42
+Description of CPU/GPU,
+Wall time (s),8.48
+Energy consumed (W),0.15
+CO₂-equivalents [CO₂eq] (g),0.05
+Network traffic (MB),0.13
+Programming language,Python
+Essential libraries,"sys
+np
+pd
+elapid
+gpd
+plt
+ctx
+rasterio
+codecarbon
+measurer
+"
