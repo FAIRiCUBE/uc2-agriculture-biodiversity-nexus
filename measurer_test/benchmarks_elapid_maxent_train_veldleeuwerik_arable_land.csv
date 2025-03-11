@@ -1,17 +1,23 @@
 Measure,Value
 Data size in grid points ,
 Largest allocated array in grid points ,"[2658345, 8]"
-Data size (MB),-0.02
+Data size (MB),-0.33
 Data read (MB),0.11
-Data written (MB),5.13
+Data written (MB),5.21
 Main memory available (MB),126177.4
-Main memory consumed (MB),11218.95
+Main memory consumed (MB),11218.84
 Sum of allocated variable sizes (MB),507.13
-Description of CPU/GPU,
-Wall time (s),1012.44
-Energy consumed (W),24.87
-CO₂-equivalents [CO₂eq] (g),8.81
-Network traffic (MB),21.25
+Description of CPU/GPU,"Machine type: x86_64
+Processor type: x86_64
+Number of physical cores: 16
+Number of logical cores: 32
+CPU frequency: 1.5007 GHz
+GPU monitoring disabled
+"
+Wall time (s),1058.58
+Energy consumed (W),26.01
+CO₂-equivalents [CO₂eq] (g),9.22
+Network traffic (MB),17.62
 Programming language,Python
 Essential libraries,"sys
 np

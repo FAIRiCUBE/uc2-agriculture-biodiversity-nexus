@@ -142,6 +142,9 @@ class Measurer:
         # frequency 
         description = description + f"CPU frequency: {cpuinfo.get_cpu_info()['hz_advertised_friendly']}\n"
         # GPU
+
+        description = description + "GPU monitoring disabled\n"
+        
 #        use_cuda = torch.cuda.is_available()
 #        if use_cuda:
 #            description = description + 'CUDNN VERSION:' +  str(torch.backends.cudnn.version()) + "\n"
@@ -151,7 +154,8 @@ class Measurer:
 #                0).total_memory / 1e6, 2)) + "\n"
 #        else:
 #            description = description + 'No GPU available\n'
-#        self.cpu_gpu_description = description
+        
+        self.cpu_gpu_description = description
         return description
 
     def start_compute_co2_emissions(self):

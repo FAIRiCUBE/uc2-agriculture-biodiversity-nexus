@@ -5,13 +5,19 @@ Data size (MB),0.0
 Data read (MB),0.0
 Data written (MB),0.0
 Main memory available (MB),126177.4
-Main memory consumed (MB),8335.82
+Main memory consumed (MB),8335.77
 Sum of allocated variable sizes (MB),527.42
-Description of CPU/GPU,
-Wall time (s),8.48
-Energy consumed (W),0.15
-CO₂-equivalents [CO₂eq] (g),0.05
-Network traffic (MB),0.13
+Description of CPU/GPU,"Machine type: x86_64
+Processor type: x86_64
+Number of physical cores: 16
+Number of logical cores: 32
+CPU frequency: 2.5528 GHz
+GPU monitoring disabled
+"
+Wall time (s),5.84
+Energy consumed (W),0.08
+CO₂-equivalents [CO₂eq] (g),0.03
+Network traffic (MB),0.06
 Programming language,Python
 Essential libraries,"sys
 np
