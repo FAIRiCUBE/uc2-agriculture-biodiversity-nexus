@@ -1,0 +1,32 @@
+Measure,Value
+Data size in grid points ,
+Largest allocated array in grid points ,"[5627244, 6]"
+Data size (MB),-0.02
+Data read (MB),0.0
+Data written (MB),0.03
+Main memory available (MB),126177.4
+Main memory consumed (MB),1394.19
+Sum of allocated variable sizes (MB),241.52
+Description of CPU/GPU,"Machine type: x86_64
+Processor type: x86_64
+Number of physical cores: 16
+Number of logical cores: 32
+CPU frequency: 1.5108 GHz
+GPU monitoring disabled
+"
+Wall time (s),13.71
+Energy consumed (W),0.28
+CO₂-equivalents [CO₂eq] (g),0.11
+Network traffic (MB),0.13
+Programming language,Python
+Essential libraries,"sys
+nx
+rasterio
+pd
+np
+os
+plotter
+warnings
+codecarbon
+measurer
+"
