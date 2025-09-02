@@ -2,7 +2,7 @@
 
 ## About this Use Case
 
-This use case focuses on biodiversity as one of the European Green Deal (EGD) priority actions, while considering the agricultural landscape as focus environment for the investigation of impact of activities at farm field level on the biodiversity. To describe a basic conceptual design of biodiversity assessment within this study we use the Dutch Biodiversity Monitor (DBM), that measures the effect on biodiversity resulting from impact that farming has on the physical conditions on the environment expressed by Key Performance Indicators (KPIs). 
+This use case investigates how farming activities impact biodiversity in agricultural landscapes. It focuses on farmland birds as indicators of ecosystem health, aligning with European Green Deal priorities. The approach combines Earth observation data, environmental indicators, and farm management information in a data cube, using machine learning to identify patterns and causal relationships. The goal is to enable more nature-inclusive farming practices through interpretable, actionable insights.
 
 The main goal in this use case is to investigate how a datacube based data infrastructure can improve the access to information related to biodiversity for researchers involved in linking human activities in agricultural areas to changes in the physical conditions of the region (e.g., soil, groundwater, emissions etc.) and the biodiversity. Furthermore, the analysis tools utilized to extract explainable links between different interventions at farm level, specific biodiversity indicators and further derived measures regarding biodiversity will be provided within FAIRiCUBE for reuse both in different locations as well as pertaining to related questions. Text.
 
